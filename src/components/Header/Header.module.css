@@ -1,25 +1,14 @@
 .header{
     grid-area: h;
-    background-color: green;
+    height: 40px;
+    background-color: goldenrod;
   }
-  
+
   .header img{
     height: auto;
-    width: 20 px;
+    width: 30px;
   }
 
-  logoPicture{
+  .logoPicture{    
     background-color: silver;    
-  }
-
-  .loginBlock{
-    float: right;
-    color: yellow;    
-    margin: 50px;
-    margin-right: 5px;
-  }
-
-  .loginBlock a{
-    color: yellow;
-    background-color: silver;
   }

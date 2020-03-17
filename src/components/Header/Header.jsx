@@ -1,16 +1,15 @@
 import React from 'react';
 import s from './Header.module.css';
 import { NavLink } from 'react-router-dom';
-import pictureLogo from '../../../assets/images/pictureLogo.jpg';
+import logoPicture from '../../assets/images/logoPicture.png';
 
 const Header = (props) => {
     return (<header className={s.header}>
-        <div>
+        <div>           
             
-            }
         </div>
         <div className={s.logoPicture}>
-            <img src={pictureLogo} />
+            <img src={logoPicture} />
         </div>
 
     </header>);

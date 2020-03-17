@@ -17,12 +17,12 @@ const App = () => {
       <Header />
       <Navbar />
 
-      <div className='app-wrapper-content'>        
-        <Route path='/profile' render={UploadBooks} />
-        <Route path='/news' render={SelectTexts} />
-        <Route path='/dialogs' render={() => <ToReadAndTranslate />} />
-        <Route path='/music' render={WordsToPair} />
-        <Route path='/users' render={UserProfile} />
+      <div className='app-wrapper-content'>
+        <Route path='/upload' render={UploadBooks} />
+        <Route path='/select' render={SelectTexts} />
+        <Route path='/read' render={() => <ToReadAndTranslate />} />
+        <Route path='/words' render={WordsToPair} />
+        <Route path='/user' render={UserProfile} />
         <Route path='/settings' render={Settings} />
       </div>
     </div>
