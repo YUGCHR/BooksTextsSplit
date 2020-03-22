@@ -10,11 +10,11 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        scrollLineUp: (sentenceNumber) => {
-            dispatch(scrollLineUp(sentenceNumber));
+        scrollLineUp: (sentenceNumber, sentencesOnPage) => {
+            dispatch(scrollLineUp(sentenceNumber, sentencesOnPage));
         },
-        scrollLineDown: (sentenceNumber) => {            
-            dispatch(scrollLineDown(sentenceNumber));
+        scrollLineDown: (sentenceNumber, sentencesOnPage) => {
+            dispatch(scrollLineDown(sentenceNumber, sentencesOnPage));
         }
     }
 }

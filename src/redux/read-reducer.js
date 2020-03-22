@@ -36,26 +36,33 @@ let initialState = {
         { id: 1, sentenceText: 'The archive was a friendly place, with hierarchies of translation keys that led them along.' },
         { id: 1, sentenceText: 'Straum itself would be famous for this.' }
     ],
-    readingSentenceNumber: 5
+    readingSentenceNumber: 1,
+    sentencesOnPage: 20
 }
 
+let lastSentenceNumber = initialState.engSentences.length;
+
 const readAndTranslateReducer = (state = initialState, action) => {
+    let newSentenceNumber = action.sentenceNumber;
+    let sentencesOnPage = action.sentencesOnPage;
     switch (action.type) {
-        case SCROLL_LINE_UP: {            
-            let stateCopy = { ...state, readingSentenceNumber: action.sentenceNumber + 1};            
+        case SCROLL_LINE_UP: {
+            let newSentenceNumberMinus = newSentenceNumber > 1 ? newSentenceNumber - 1 : newSentenceNumber;
+            let stateCopy = { ...state, readingSentenceNumber: newSentenceNumberMinus };
             return stateCopy;
         }
         case SCROLL_LINE_DOWN: {
-            let stateCopy = { ...state, readingSentenceNumber: action.sentenceNumber - 1};
+            let newSentenceNumberPlus = newSentenceNumber < (lastSentenceNumber - sentencesOnPage) ? newSentenceNumber + 1 : newSentenceNumber;
+            let stateCopy = { ...state, readingSentenceNumber: newSentenceNumberPlus };
             return stateCopy;
         }
-        
+
         default:
             return state;
     }
 }
 
-export const scrollLineUp = (sentenceNumber) => ({ type: SCROLL_LINE_UP, sentenceNumber});
-export const scrollLineDown = (sentenceNumber) => ({ type: SCROLL_LINE_DOWN, sentenceNumber});
+export const scrollLineUp = (sentenceNumber, sentencesOnPage) => ({ type: SCROLL_LINE_UP, sentenceNumber, sentencesOnPage });
+export const scrollLineDown = (sentenceNumber, sentencesOnPage) => ({ type: SCROLL_LINE_DOWN, sentenceNumber, sentencesOnPage });
 
 export default readAndTranslateReducer;

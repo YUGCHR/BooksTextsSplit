@@ -12,16 +12,16 @@ const Sentence = (props) => {
 
 let ToReadAndTranslate = (props) => {
     let startSentence = props.readAndTranslatePage.readingSentenceNumber;
-    let endSentence = startSentence + 20;
+    let sentencesOnPage = props.readAndTranslatePage.sentencesOnPage;
+    let endSentence = startSentence + sentencesOnPage;
     let showSentences = props.readAndTranslatePage.engSentences.slice(startSentence, endSentence).map((s) => { return <Sentence text={s.sentenceText} /> });
-    
-debugger;
+
     return (<div>
         <div className={s.editLine}>
             Edit line
             </div>
         <div>
-            <button onClick={() => {props.scrollLineDown(startSentence)}}>Scroll Line Down</button>
+            <button onClick={() => { props.scrollLineUp(startSentence, sentencesOnPage) }}>Scroll Line Up</button>
         </div>
         <div>
             <div>{showSentences}</div>
@@ -35,7 +35,7 @@ debugger;
             Translate line
         </div>
         <div>
-            <button onClick={() => {props.scrollLineUp(startSentence)}}>Scroll Line Up</button>
+            <button onClick={() => { props.scrollLineDown(startSentence, sentencesOnPage) }}>Scroll Line Down</button>
         </div>
     </div>)
 }
