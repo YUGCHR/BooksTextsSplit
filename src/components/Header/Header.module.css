@@ -1,14 +1,18 @@
 .header{
     grid-area: h;
     height: 40px;
+    margin-top: 10 px;
     background-color: goldenrod;
   }
 
   .header img{
-    height: auto;
-    width: 30px;
+    margin: auto;
+    margin-left: 10px;
+    margin-top: 10 px;
+    height: 30px;
+    width: auto;
   }
 
-  .logoPicture{    
+  .logoPicture{
     background-color: silver;    
   }

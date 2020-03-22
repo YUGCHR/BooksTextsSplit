@@ -18,7 +18,7 @@ const Navbar = () => {
     </div>
 
     <div className={`${s.item} ${s.activeLink}`}>
-      <NavLink to='/word' activeClassName={s.activeLink}>WordsToPair</NavLink>
+      <NavLink to='/words' activeClassName={s.activeLink}>WordsToPair</NavLink>
     </div>
 
     <div className={s.blank}> - </div>

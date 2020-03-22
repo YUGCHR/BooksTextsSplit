@@ -2,7 +2,7 @@ import { createStore, combineReducers } from "redux";
 import readAndTranslateReducer from "./read-reducer";
 
 let reducers = combineReducers({
-    readAndTranslate: readAndTranslateReducer
+    readAndTranslatePage: readAndTranslateReducer
     
 })
 
