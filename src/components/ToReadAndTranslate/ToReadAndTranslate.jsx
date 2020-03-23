@@ -11,31 +11,53 @@ const Sentence = (props) => {
 }
 
 let ToReadAndTranslate = (props) => {
-    let startSentence = props.readAndTranslatePage.readingSentenceNumber;
-    let sentencesOnPage = props.readAndTranslatePage.sentencesOnPage;
-    let endSentence = startSentence + sentencesOnPage;
-    let showSentences = props.readAndTranslatePage.engSentences.slice(startSentence, endSentence).map((s) => { return <Sentence text={s.sentenceText} /> });
+    let readingSentence = props.readAndTranslatePage.readingSentenceNumber;
+
+    let sentencesOnPageTop = props.readAndTranslatePage.sentencesOnPageTop;
+    let startSentenceTop = readingSentence - sentencesOnPageTop;
+    let endSentenceTop = startSentenceTop + sentencesOnPageTop;
+
+    let showTopSentences = props.readAndTranslatePage.engSentences.slice(startSentenceTop, endSentenceTop).map((s) => 
+    { return <Sentence text={s.sentenceText} /> });
+
+    let sentencesOnPageBottom = props.readAndTranslatePage.sentencesOnPageBottom;
+    let startSentenceBottom = readingSentence + 1;
+    let endSentenceBottom = startSentenceBottom + sentencesOnPageBottom;
+
+    let showBottomSentences = props.readAndTranslatePage.engSentences.slice(startSentenceBottom,
+        endSentenceBottom).map((s) => 
+        { return <Sentence text={s.sentenceText} /> });
+
+    let currentEngSentence = [props.readAndTranslatePage.engSentences[readingSentence]].map((s) => 
+    { return  <Sentence text={s.sentenceText} /> });
+
+    let currentRusSentence = [props.readAndTranslatePage.rusSentences[readingSentence]].map((s) => 
+    { return  <Sentence text={s.sentenceText} /> });
+
 
     return (<div>
         <div className={s.editLine}>
             Edit line
             </div>
         <div>
-            <button onClick={() => { props.scrollLineUp(startSentence, sentencesOnPage) }}>Scroll Line Up</button>
+            <button onClick={() => { props.scrollLineUp(readingSentence) }}>Scroll Line Up</button>
         </div>
         <div>
-            <div>{showSentences}</div>
+            <div>{showTopSentences}</div>
         </div>
         <div className={s.currentSentence}>
-            Current Sentence
-            </div>
+          {currentEngSentence}
+        </div>
         <div>
         </div>
         <div className={s.translateLine}>
-            Translate line
+        {currentRusSentence}
         </div>
         <div>
-            <button onClick={() => { props.scrollLineDown(startSentence, sentencesOnPage) }}>Scroll Line Down</button>
+            <div>{showBottomSentences}</div>
+        </div>
+        <div>
+            <button onClick={() => { props.scrollLineDown(readingSentence) }}>Scroll Line Down</button>
         </div>
     </div>)
 }
