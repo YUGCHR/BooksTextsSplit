@@ -36,6 +36,7 @@ let initialState = {
         { id: 31, sentenceText: '31 The archive was a friendly place, with hierarchies of translation keys that led them along.' },
         { id: 32, sentenceText: '32 Straum itself would be famous for this.' }
     ],
+    lastSentenceNumber: null,
     rusSentences: [
         { id: 1, sentenceText: '01 Как объяснить?' },
         { id: 2, sentenceText: '02 Как описать?' },
@@ -70,25 +71,34 @@ let initialState = {
         { id: 31, sentenceText: '31 Архив был дружественным, иерархия ключей выстраивалась и вела исследователей.' },
         { id: 32, sentenceText: '32 Это открытие прославит сам Страум.' }
     ],
-    readingSentenceNumber: 15,    
     sentencesOnPage: 20,
     sentencesOnPageTop: 10,
-    sentencesOnPageBottom: 10
+    sentencesOnPageBottom: 10,
+    readingSentenceNumber: null,
+    emptyVariable: null
 }
 
 let lastSentenceNumber = initialState.engSentences.length;
+initialState.lastSentenceNumber = lastSentenceNumber;
+let sentencesOnPageTop = initialState.sentencesOnPageTop;
+initialState.readingSentenceNumber = sentencesOnPageTop;
+let emptyLineTop = Array(sentencesOnPageTop).fill({ id: 100, sentenceText: '-' });
+let emptyLineBottom = Array(sentencesOnPageTop).fill({ id: 100, sentenceText: '-' });
+initialState.engSentences = emptyLineTop.concat(initialState.engSentences).concat(emptyLineBottom);
+initialState.rusSentences = emptyLineTop.concat(initialState.rusSentences).concat(emptyLineBottom);
 
 const readAndTranslateReducer = (state = initialState, action) => {
     let newSentenceNumber = action.newSentenceNumber;
+    let sentencesOnPageTop = initialState.sentencesOnPageTop;
     switch (action.type) {
         case SCROLL_LINE_UP: {
-            /* let newSentenceNumberMinus = readingSentenceNumber > 11 ? readingSentenceNumber - 1 : readingSentenceNumber; */
-            let stateCopy = { ...state, readingSentenceNumber: newSentenceNumber - 1 };
+            let newSentenceNumberMinus = newSentenceNumber > sentencesOnPageTop ? newSentenceNumber - 1 : newSentenceNumber;
+            let stateCopy = { ...state, readingSentenceNumber: newSentenceNumberMinus };
             return stateCopy;
         }
         case SCROLL_LINE_DOWN: {
-            /* let newSentenceNumberPlus = readingSentenceNumber < (lastSentenceNumber - 21) ? readingSentenceNumber + 1 : readingSentenceNumber; */
-            let stateCopy = { ...state, readingSentenceNumber: newSentenceNumber + 1 };
+            let newSentenceNumberPlus = newSentenceNumber < (lastSentenceNumber + sentencesOnPageTop - 1) ? newSentenceNumber + 1 : newSentenceNumber;
+            let stateCopy = { ...state, readingSentenceNumber: newSentenceNumberPlus };
             return stateCopy;
         }
 

@@ -6,11 +6,26 @@
 }
 
 .currentSentence{
-    color: red;
+    color: darkgreen;
     background-color: whitesmoke;
 }
 
 .translateLine{
     color: black;
     background-color: coral;
+    font-size: smaller;
+}
+
+.twoColumnsTop{    
+    float: right;
+}
+
+.twoColumnsReading{    
+    float: right;
+    color: black;
+    background-color: lightblue;
+}
+
+.twoColumnsBottom{    
+    float: right;
 }

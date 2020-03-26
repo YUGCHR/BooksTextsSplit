@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { scrollLineUp, scrollLineDown } from '../../redux/read-reducer';
 import ToReadAndTranslate from './ToReadAndTranslate';
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state) => {    
     return {
         readAndTranslatePage: state.readAndTranslatePage
     }

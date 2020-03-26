@@ -16,3 +16,7 @@
   .logoPicture{
     background-color: silver;    
   }
+
+  .twoColumnsTop{    
+    float: right;
+}

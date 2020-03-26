@@ -4,6 +4,9 @@ import { NavLink } from 'react-router-dom';
 import logoPicture from '../../assets/images/logoPicture.png';
 
 const Header = (props) => {
+
+    //let readingSentence = props.readAndTranslatePage.readingSentenceNumber;
+
     return (<header className={s.header}>
         <div>           
             
