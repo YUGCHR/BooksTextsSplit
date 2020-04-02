@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
-import UploadBooks from './components/UploadBooks/UploadBooks';
+import UploadBooksContainer from './components/UploadBooks/UploadBooksContainer';
 import SelectTexts from './components/SelectTexts/SelectTexts';
 import ToReadAndTranslateContainer from './components/ToReadAndTranslate/ToReadAndTranslateContainer';
 import WordsToPair from './components/WordsToPair/WordsToPair';
@@ -18,7 +18,7 @@ const App = () => {
       <Navbar />
 
       <div className='app-wrapper-content'>
-        <Route path='/upload' render={UploadBooks} />
+        <Route path='/upload' render={() => <UploadBooksContainer />} />
         <Route path='/select' render={SelectTexts} />
         <Route path='/read' render={() => <ToReadAndTranslateContainer />} />
         <Route path='/words' render={WordsToPair} />

@@ -1,8 +1,10 @@
 import { createStore, combineReducers } from "redux";
 import readAndTranslateReducer from "./read-reducer";
+import uploadBooksReducer from "./load-reducer";
 
 let reducers = combineReducers({
-    readAndTranslatePage: readAndTranslateReducer
+    readAndTranslatePage: readAndTranslateReducer,
+    uploadBooksPage: uploadBooksReducer
     
 })
 

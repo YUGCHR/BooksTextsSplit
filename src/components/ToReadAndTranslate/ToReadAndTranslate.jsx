@@ -40,10 +40,10 @@ let ToReadAndTranslate = (props) => {
     props.readAndTranslatePage.engSentences.map(u => {
         Axios
             .post("https://localhost:5001/api/TodoItems", u)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error))}) 
-        
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error))})
+    
         return (<div>
             <div className={s.twoColumnsReading}>
                 {lastSentenceNumber}
