@@ -4,21 +4,19 @@ import s from './UploadBooks.module.css'
 
 const UploadBooks = (props) => {
 
-let showTotalCount = props.sentencesCount;
-
-    return (<div>
-        
-        {/* <div>
+    let engButtonCaption = (props.isLoaded ? 'loaded count =' + props.sentencesCount : 'Load English Text');
+    return (<div>        
+        <div>
             <div>
                 <div className={s.twoColumnsTop}>
                     <p>
-                        <button onClick={() => { props.loadEngText() }}>Load English Text</button>
+                        <button disabled = {props.isLoaded} onClick={ () => {props.loadEngText()} }> {engButtonCaption} </button>                        
                     </p>
                 </div>
                 
             </div>
-        </div> */}
-        <div>Sentence Count = {showTotalCount}</div>
+        </div>
+        <div>Sentence Count = {props.sentencesCount}</div>
         {/* <div>
             <div>
                 
