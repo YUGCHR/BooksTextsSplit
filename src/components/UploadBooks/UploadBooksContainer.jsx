@@ -61,7 +61,8 @@ let mapStateToProps = (state) => {
     return {
         sentencesCount: state.uploadBooksPage.sentencesCount,
         isLoaded: state.uploadBooksPage.isLoaded,
-        engSentences: state.uploadBooksPage.engSentences
+        engSentences: state.uploadBooksPage.engSentences,
+        isFetching: state.uploadBooksPage.isFetching
     }
 }
 
