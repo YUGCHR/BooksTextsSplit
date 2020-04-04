@@ -2,21 +2,33 @@ import React from 'react';
 import Axios from 'axios';
 import s from './UploadBooks.module.css'
 
+const Sentence = (props) => {
+    return (
+        <div >
+            {props.text}
+        </div>
+    )
+}
+
 const UploadBooks = (props) => {
 
-    let engButtonCaption = (props.isLoaded ? 'loaded count =' + props.sentencesCount : 'Load English Text');
-    return (<div>        
+    let buttonCaption = (props.isLoaded ? 'loaded count = ' + props.engSentencesCount : 'Load English Text');
+    let engTextStartsFrom = 'English text starts from: ';
+    let currentEngSentence = (props) => { return <Sentence text={engTextStartsFrom + props.sentenceText} /> };    
+    let engFirstSentence = currentEngSentence(props.engSentences[0]);
+    
+    return (<div>
         <div>
             <div>
                 <div className={s.twoColumnsTop}>
                     <p>
-                        <button disabled = {props.isLoaded} onClick={ () => {props.loadEngText()} }> {engButtonCaption} </button>                        
+                        <button /* disabled = {props.isLoaded} */ onClick={() => { props.loadText() }}> {buttonCaption} </button>
                     </p>
                 </div>
-                
+
             </div>
         </div>
-        <div>Sentence Count = {props.sentencesCount}</div>
+        <div>{engFirstSentence}</div>
         {/* <div>
             <div>
                 

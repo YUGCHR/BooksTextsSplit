@@ -1,7 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import { connect } from 'react-redux';
-import { loadEngText, toggleIsLoading, loadRusText, fetchSentencesCount, setSentencesCount, toggleIsFetching } from '../../redux/load-reducer';
+import { loadText, toggleIsLoading, fetchSentencesCount, setSentencesCount, toggleIsFetching } from '../../redux/load-reducer';
 import UploadBooks from './UploadBooks';
 import Preloader from '../common/preloader/Preloader';
 
@@ -14,42 +14,37 @@ class UploadBooksContainerAPI extends React.Component {
     }
 
     fetchSentencesCount = () => {
-        this.props.toggleIsFetching(true);     
+        this.props.toggleIsFetching(true);
         Axios
             .get(`https://localhost:5001/api/TodoItems/count`)
             .then(Response => {
                 this.props.toggleIsFetching(false);
                 this.props.setSentencesCount(Response.data.sentencesCount);
+                this.props.engSentencesCount === 0 ? this.props.toggleIsLoading(false) : this.props.toggleIsLoading(true);
             });
     }
 
-    loadEngText = (isLoaded) => {
-        this.props.toggleIsFetching(true);
-        
+    loadText = () => {
+        if (this.props.engSentencesCount === 0) {
+            this.props.toggleIsFetching(true);
             Axios
                 .post("https://localhost:5001/api/TodoItems", this.props.engSentences)
-                .then(Response => {       
+                .then(Response => {
                     this.props.toggleIsFetching(false);
                     this.fetchSentencesCount();
                     this.props.toggleIsLoading(true);
                 });
-     
+        }
+        else { alert('cannot load once more') }
     }
-
-    /* props.readAndTranslatePage.engSentences.map(u => {
-        Axios
-            .post("https://localhost:5001/api/TodoItems", u)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error))}) */
 
     render() {
         return <>
             {this.props.isFetching ? <Preloader /> : null}//;
             <UploadBooks
-                loadEngText={this.loadEngText}
-                loadRusText={this.props.loadRusText}
-                sentencesCount={this.props.sentencesCount}
+                loadText={this.loadText}
+                engSentences={this.props.engSentences}
+                engSentencesCount={this.props.engSentencesCount}
                 isLoaded={this.props.isLoaded}
                 fetchSentencesCount={this.fetchSentencesCount}
             />
@@ -59,26 +54,15 @@ class UploadBooksContainerAPI extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        sentencesCount: state.uploadBooksPage.sentencesCount,
+        engSentencesCount: state.uploadBooksPage.engSentencesCount,
         isLoaded: state.uploadBooksPage.isLoaded,
         engSentences: state.uploadBooksPage.engSentences,
         isFetching: state.uploadBooksPage.isFetching
     }
 }
 
-/* let mapDispatchToProps = (dispatch) => {
-    return {
-        loadEngText: () => {
-            dispatch(loadEngText());
-        },
-        loadRusText: () => {
-            dispatch(loadRusText());
-        }
-    }
-} */
-
 let UploadBooksContainer = connect(mapStateToProps,
-    { loadEngText, toggleIsLoading, loadRusText, fetchSentencesCount, setSentencesCount, toggleIsFetching })
+    { loadText, toggleIsLoading, fetchSentencesCount, setSentencesCount, toggleIsFetching })
     (UploadBooksContainerAPI);
 
 export default UploadBooksContainer;

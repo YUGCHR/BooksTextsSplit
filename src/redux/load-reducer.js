@@ -1,5 +1,4 @@
-const LOAD_ENG_TEXT = 'LOAD-ENG-TEXT';
-const LOAD_RUS_TEXT = 'LOAD-RUS-TEXT';
+const LOAD_TEXT = 'LOAD-TEXT';
 const FETCH_SENTENCE_COUNT = 'FETCH-SENTENCE-COUNT';
 const SET_SENTENCES_COUNT = 'SET-SENTENCES-COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
@@ -40,10 +39,44 @@ let initialState = {
         { languageId: 0, sentenceText: '31 The archive was a friendly place, with hierarchies of translation keys that led them along.' },
         { languageId: 0, sentenceText: '32 Straum itself would be famous for this.' }
     ],
-
     lastSentenceNumber: null,
+    engSentencesCount: 777,
+    rusSentences: [
+        { languageId: 1, sentenceText: '01 Как объяснить?' },
+        { languageId: 1, sentenceText: '02 Как описать?' },
+        { languageId: 1, sentenceText: '03 Даже всезнание отказывает.' },
+        { languageId: 1, sentenceText: '04  * ' },
+        { languageId: 1, sentenceText: '05 Одиночная звезда, красноватая и тусклая.' },
+        { languageId: 1, sentenceText: '06 Россыпь астероидов и единственная планета, больше похожая на луну.' },
+        { languageId: 1, sentenceText: '07 В эту эпоху звезда повисла возле плоскости галактики, у самого Края.' },
+        { languageId: 1, sentenceText: '08 Структуры поверхности давно потеряли нормальный вид, распылились в реголиты за несчитанные эры.' },
+        { languageId: 1, sentenceText: '09 Клад был глубоко под землей, под сетью переходов, в залитой темнотой комнате.' },
+        { languageId: 1, sentenceText: '10 Информация на квантовом уровне, повреждений нет.' },
+        { languageId: 1, sentenceText: '11 Прошло, быть может, миллиардов пять лет, как этот архив ушел со всех сетей.' },
+        { languageId: 1, sentenceText: '12 Проклятие фараона – комический образ из собственной истории человечества, давно забытый.' },
+        { languageId: 1, sentenceText: '13 * ' },
+        { languageId: 1, sentenceText: '14 Они смеялись при этих словах, смеялись от радости, найдя сокровище… и все же твердо решили действовать осторожно.' },
+        { languageId: 1, sentenceText: '15 Им предстояло прожить тут от года до пяти, маленькой группе со Страума – археопрограммисты, их семьи и школа для детей.' },
+        { languageId: 1, sentenceText: '16 От года до пяти, чтобы подобрать протоколы, снять сливки и выяснить источник клада в пространстве и времени, узнать один-другой секрет, который обогатит царство Страума.' },
+        { languageId: 1, sentenceText: '17 А когда закончится работа, место можно будет продать, быть может, построить сетевую связь (но это вряд ли – место это за Краем, и кто знает, какая Сила может наложить лапу на эту находку).' },
+        { languageId: 1, sentenceText: '18 * ' },
+        { languageId: 1, sentenceText: '19 Так что сейчас тут был крошечный поселок, прозванный жителями Верхняя Лаборатория.' },
+        { languageId: 1, sentenceText: '20 Ничего особенного – люди возились со старой библиотекой.' },
+        { languageId: 1, sentenceText: '21 При имеющейся автоматике дело безопасное, чистое и простенькое.' },
+        { languageId: 1, sentenceText: '22 Библиотека не была живым существом и даже не была автоматизирована (что в этих местах могло значить много больше, куда больше, чем быть человеком).' },
+        { languageId: 1, sentenceText: '23 Люди собирались смотреть и выбирать и быть осторожными, чтобы не обжечься.' },
+        { languageId: 1, sentenceText: '24  * ' },
+        { languageId: 1, sentenceText: '25 Люди устраивают пожары и играют с пламенем.' },
+        { languageId: 1, sentenceText: '26 * ' },
+        { languageId: 1, sentenceText: '27 Архив проинформировал автоматику.' },
+        { languageId: 1, sentenceText: '28 Построились структуры данных, стали выполняться рецепты.' },
+        { languageId: 1, sentenceText: '29 Возникла локальная сеть, быстрее, чем в любом месте на Страуме, но с гарантией безопасности.' },
+        { languageId: 1, sentenceText: '30 Добавлялись узлы, модифицируемые другими рецептами.' },
+        { languageId: 1, sentenceText: '31 Архив был дружественным, иерархия ключей выстраивалась и вела исследователей.' },
+        { languageId: 1, sentenceText: '32 Это открытие прославит сам Страум.' }
+    ],
     sentencesOnPageTop: 10,
-    sentencesCount: 777,
+    rusSentencesCount: 777,
     emptyVariable: null,
     isLoaded: false,
     isFetching: false
@@ -56,23 +89,19 @@ initialState.lastSentenceNumber = lastSentenceNumber;
 const uploadBooksReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case LOAD_ENG_TEXT: {            
+        case LOAD_TEXT: {            
             let stateCopy = { ...state };
             return stateCopy;
         }
         case TOGGLE_IS_LOADING: {
             return { ...state, isLoaded: action.isLoaded }
-        }
-        case LOAD_RUS_TEXT: {            
-            let stateCopy = { ...state };
-            return stateCopy;
-        }
+        }        
         case FETCH_SENTENCE_COUNT: {            
             let stateCopy = { ...state };
             return stateCopy;
         }
         case SET_SENTENCES_COUNT: {
-            let stateCopy = { ...state, sentencesCount: action.count };
+            let stateCopy = { ...state, engSentencesCount: action.count };
             return stateCopy;
         }
         case TOGGLE_IS_FETCHING: {
@@ -83,9 +112,8 @@ const uploadBooksReducer = (state = initialState, action) => {
     }
 }
 
-export const loadEngText = () => ({ type: LOAD_ENG_TEXT });
+export const loadText = () => ({ type: LOAD_TEXT });
 export const toggleIsLoading = (isLoaded) => ({ type: TOGGLE_IS_LOADING, isLoaded });
-export const loadRusText = () => ({ type: LOAD_RUS_TEXT });
 export const fetchSentencesCount = () => ({ type: FETCH_SENTENCE_COUNT });
 export const setSentencesCount = (totalCount) => ({ type: SET_SENTENCES_COUNT, count: totalCount });
 export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching });
