@@ -10,28 +10,45 @@ class UploadBooksContainerAPI extends React.Component {
     constructor(props) { super(props); }
 
     componentDidMount() {
-        this.fetchSentencesCount()
+        this.fetchSentencesCount(0);
+        this.fetchSentencesCount(1);
     }
 
-    fetchSentencesCount = () => {
+    fetchSentencesCount = (languageId) => {
         this.props.toggleIsFetching(true);
         Axios
-            .get(`https://localhost:5001/api/TodoItems/count`)
+            .get(`https://localhost:5001/api/TodoItems/count/${languageId}`)
             .then(Response => {
+                debugger;
                 this.props.toggleIsFetching(false);
-                this.props.setSentencesCount(Response.data.sentencesCount);
-                this.props.engSentencesCount === 0 ? this.props.toggleIsLoading(false) : this.props.toggleIsLoading(true);
+                this.props.setSentencesCount(Response.data.sentencesCount, languageId);
+                this.props.sentencesCount[languageId] === 0
+                    ? this.props.toggleIsLoading(false, languageId)
+                    : this.props.toggleIsLoading(true, languageId);
             });
     }
 
-    loadText = () => {
-        if (this.props.engSentencesCount === 0) {
+    loadText = (languageId) => {
+        let sentencesCount = this.props.engSentencesCount;
+        let allSentences = this.props.engSentences;
+
+        if (languageId === 0) {
+            sentencesCount = this.props.engSentencesCount;
+            allSentences = this.props.engSentences;
+        };
+        if (languageId === 1) {
+            sentencesCount = this.props.rusSentencesCount;
+            allSentences = this.props.rusSentences;
+        };
+
+        if (sentencesCount === 0) {
             this.props.toggleIsFetching(true);
             Axios
-                .post("https://localhost:5001/api/TodoItems", this.props.engSentences)
+                .post("https://localhost:5001/api/TodoItems", allSentences)
                 .then(Response => {
+                    /* (Response.data.totalCount - to add! */
                     this.props.toggleIsFetching(false);
-                    this.fetchSentencesCount();
+                    this.fetchSentencesCount(languageId);
                     this.props.toggleIsLoading(true);
                 });
         }
@@ -44,7 +61,8 @@ class UploadBooksContainerAPI extends React.Component {
             <UploadBooks
                 loadText={this.loadText}
                 engSentences={this.props.engSentences}
-                engSentencesCount={this.props.engSentencesCount}
+                rusSentences={this.props.rusSentences}
+                sentencesCount={this.props.sentencesCount}                
                 isLoaded={this.props.isLoaded}
                 fetchSentencesCount={this.fetchSentencesCount}
             />
@@ -54,9 +72,10 @@ class UploadBooksContainerAPI extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        engSentencesCount: state.uploadBooksPage.engSentencesCount,
+        sentencesCount: state.uploadBooksPage.sentencesCount,
         isLoaded: state.uploadBooksPage.isLoaded,
         engSentences: state.uploadBooksPage.engSentences,
+        rusSentences: state.uploadBooksPage.rusSentences,
         isFetching: state.uploadBooksPage.isFetching
     }
 }
