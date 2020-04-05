@@ -5,6 +5,10 @@ const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 const TOGGLE_IS_LOADING = 'TOGGLE-IS-LOADING';
 
 let initialState = {
+    engTextTitle: {languageId: 0, 
+        authorName: 'Vernor Vinge', 
+        bookTitle: 'A Fire Upon the Deep'
+    },
     engSentences: [
         { languageId: 0, sentenceText: '01 How to explain?' },
         { languageId: 0, sentenceText: '02 How to describe?' },
@@ -39,7 +43,11 @@ let initialState = {
         { languageId: 0, sentenceText: '31 The archive was a friendly place, with hierarchies of translation keys that led them along.' },
         { languageId: 0, sentenceText: '32 Straum itself would be famous for this.' }
     ],
-    lastSentenceNumber: null,    
+    lastSentenceNumber: null,
+    rusTextTitle: {languageId: 1, 
+        authorName: 'Вернор Виндж', 
+        bookTitle: 'Пламя над бездной'
+    },
     rusSentences: [
         { languageId: 1, sentenceText: '01 Как объяснить?' },
         { languageId: 1, sentenceText: '02 Как описать?' },
@@ -79,8 +87,7 @@ let initialState = {
     rusSentencesCount: 888,
     sentencesCount: [777, 888],
     emptyVariable: null,
-    isEngLoaded: false,
-    isRusLoaded: false,
+    isLoaded: [false, false],
     isFetching: false
 }
 
@@ -97,21 +104,23 @@ const uploadBooksReducer = (state = initialState, action) => {
         }
         case TOGGLE_IS_LOADING: {
             /* return { ...state, isEngLoaded: action.isEngLoaded } */
-            if(action.language = 0) return { ...state, isEngLoaded: action.isLoaded };
-            if(action.language = 1) return { ...state, isRusLoaded: action.isLoaded };
+            let stateCopy = { ...state };
+            stateCopy.isLoaded = { ...state.isLoaded };
+            stateCopy.isLoaded[action.languageId] = action.isLoaded;
+            return stateCopy;
         }        
         case FETCH_SENTENCE_COUNT: {            
             let stateCopy = { ...state };
             return stateCopy;
         }
         case SET_SENTENCES_COUNT: {
-            let stateCopy = { ...state }
-            stateCopy.sentencesCount = { ...state.sentencesCount }
+            let stateCopy = { ...state };
+            stateCopy.sentencesCount = { ...state.sentencesCount };
             stateCopy.sentencesCount[action.languageId] = action.count;
             return stateCopy;            
         }
         case TOGGLE_IS_FETCHING: {
-            return { ...state, isFetching: action.isFetching }
+            return { ...state, isFetching: action.isFetching };
         }
         default:
             return state;
@@ -119,7 +128,7 @@ const uploadBooksReducer = (state = initialState, action) => {
 }
 
 export const loadText = (languageId) => ({ type: LOAD_TEXT, languageId });
-export const toggleIsLoading = (isLoaded, languageId) => ({ type: TOGGLE_IS_LOADING, isLoaded, language: languageId });
+export const toggleIsLoading = (isLoaded, languageId) => ({ type: TOGGLE_IS_LOADING, isLoaded, languageId });
 export const fetchSentencesCount = (languageId) => ({ type: FETCH_SENTENCE_COUNT, languageId });
 export const setSentencesCount = (count, languageId) => ({ type: SET_SENTENCES_COUNT, count, languageId });
 export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching });

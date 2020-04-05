@@ -20,8 +20,13 @@ const loadButton = (props) => {
 
 const UploadBooks = (props) => {
 
-    let buttonEngCaption = (props.isLoaded ? 'loaded count = ' + props.sentencesCount[0] : 'Load English Text -/' + props.sentencesCount[0]);
-    let buttonRusCaption = (props.isLoaded ? 'loaded count = ' + props.sentencesCount[1] : 'Load Russian Text -/' + props.sentencesCount[1]);
+    let setButtonCaption = ['English', 'Russian'];
+    setButtonCaption[0] = props.isLoaded[0]
+        ? 'loaded count = ' + props.sentencesCount[0]
+        : 'Load English Text -/' + props.sentencesCount[0];
+    setButtonCaption[1] = props.isLoaded[1]
+        ? 'loaded count = ' + props.sentencesCount[1]
+        : 'Load Russian Text -/' + props.sentencesCount[1];
 
     let engTexTitle = 'English text title: ';
     let currentEngSentence = (props) => { return <Sentence text={engTexTitle + props.sentenceText} /> };
@@ -36,29 +41,29 @@ const UploadBooks = (props) => {
             <div>
                 <div className={s.twoColumnsTop}>
                     <p>
-                        <button /* disabled = {props.isLoaded} */ onClick={() => { props.loadText(0) }}> {buttonEngCaption} </button>
+                        <button /* disabled = {props.isLoaded} */ onClick={() => { props.loadText(0) }}> {setButtonCaption[0]} </button>
                     </p>
                 </div>
                 <div className={s.twoColumnsBottom}>
                     <p>
-                    {engFirstSentence}
+                        {engFirstSentence}
                     </p>
                 </div>
             </div>
-<p></p>
+            <p></p>
             <div>
                 <div className={s.twoColumnsTop}>
                     <p>
-                        <button /* disabled = {props.isLoaded} */ onClick={() => { props.loadText(1) }}> {buttonRusCaption} </button>
+                        <button /* disabled = {props.isLoaded} */ onClick={() => { props.loadText(1) }}> {setButtonCaption[1]} </button>
                     </p>
                 </div>
                 <div className={s.twoColumnsBottom}>
                     <p>
-                    {rusFirstSentence}
+                        {rusFirstSentence}
                     </p>
                 </div>
             </div>
-        </div>        
+        </div>
     </div >)
 }
 

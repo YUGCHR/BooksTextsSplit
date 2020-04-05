@@ -17,9 +17,8 @@ class UploadBooksContainerAPI extends React.Component {
     fetchSentencesCount = (languageId) => {
         this.props.toggleIsFetching(true);
         Axios
-            .get(`https://localhost:5001/api/TodoItems/count/${languageId}`)
+            .get(`https://localhost:5001/api/BookTexts/count/${languageId}`)
             .then(Response => {
-                debugger;
                 this.props.toggleIsFetching(false);
                 this.props.setSentencesCount(Response.data.sentencesCount, languageId);
                 this.props.sentencesCount[languageId] === 0
@@ -44,12 +43,12 @@ class UploadBooksContainerAPI extends React.Component {
         if (sentencesCount === 0) {
             this.props.toggleIsFetching(true);
             Axios
-                .post("https://localhost:5001/api/TodoItems", allSentences)
+                .post("https://localhost:5001/api/BookTexts", allSentences)
                 .then(Response => {
                     /* (Response.data.totalCount - to add! */
                     this.props.toggleIsFetching(false);
                     this.fetchSentencesCount(languageId);
-                    this.props.toggleIsLoading(true);
+                    this.props.toggleIsLoading(true, languageId);
                 });
         }
         else { alert('cannot load once more') }
