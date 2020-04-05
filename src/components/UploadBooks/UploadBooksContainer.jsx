@@ -29,15 +29,15 @@ class UploadBooksContainerAPI extends React.Component {
     }
 
     loadText = (languageId) => {
-        let sentencesCount = this.props.engSentencesCount;
+        let sentencesCount = this.props.sentencesCount[0];
         let allSentences = this.props.engSentences;
 
         if (languageId === 0) {
-            sentencesCount = this.props.engSentencesCount;
+            sentencesCount = this.props.sentencesCount[0];
             allSentences = this.props.engSentences;
         };
         if (languageId === 1) {
-            sentencesCount = this.props.rusSentencesCount;
+            sentencesCount = this.props.sentencesCount[1];
             allSentences = this.props.rusSentences;
         };
 
