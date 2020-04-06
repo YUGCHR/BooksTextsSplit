@@ -1,7 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import { connect } from 'react-redux';
-import { loadText, toggleIsLoading, fetchSentencesCount, setSentencesCount, toggleIsFetching } from '../../redux/load-reducer';
+import { loadText, toggleIsLoading, fetchSentencesCount, setSentencesCount, setButtonCaption, toggleIsFetching } from '../../redux/load-reducer';
 import UploadBooks from './UploadBooks';
 import Preloader from '../common/preloader/Preloader';
 
@@ -12,6 +12,13 @@ class UploadBooksContainerAPI extends React.Component {
     componentDidMount() {
         this.fetchSentencesCount(0);
         this.fetchSentencesCount(1);
+    }
+
+    setButtonCaption = (languageId) => { return(
+        this.props.isTextLoaded[languageId] 
+        ? 'loaded count = ' + this.props.sentencesCount[languageId]
+        : this.props.buttonsTextsParts[languageId] + this.props.sentencesCount[languageId]
+    );        
     }
 
     fetchSentencesCount = (languageId) => {
@@ -52,17 +59,21 @@ class UploadBooksContainerAPI extends React.Component {
                 });
         }
         else { alert('cannot load once more') }
-    }
+    }    
 
     render() {
         return <>
             {this.props.isFetching ? <Preloader /> : null}//;
+
             <UploadBooks
                 loadText={this.loadText}
                 engSentences={this.props.engSentences}
                 rusSentences={this.props.rusSentences}
                 sentencesCount={this.props.sentencesCount}                
-                isLoaded={this.props.isLoaded}
+                setButtonCaption={this.setButtonCaption}
+                isTextLoaded={this.props.isTextLoaded}
+                buttonsCaptions={this.props.buttonsCaptions}
+                buttonsTextsParts={this.props.buttonsTextsParts}
                 fetchSentencesCount={this.fetchSentencesCount}
             />
         </>
@@ -72,15 +83,17 @@ class UploadBooksContainerAPI extends React.Component {
 let mapStateToProps = (state) => {
     return {
         sentencesCount: state.uploadBooksPage.sentencesCount,
-        isLoaded: state.uploadBooksPage.isLoaded,
+        isTextLoaded: state.uploadBooksPage.isTextLoaded,
         engSentences: state.uploadBooksPage.engSentences,
         rusSentences: state.uploadBooksPage.rusSentences,
+        buttonsCaptions: state.uploadBooksPage.buttonsCaptions,
+        buttonsTextsParts: state.uploadBooksPage.buttonsTextsParts,
         isFetching: state.uploadBooksPage.isFetching
     }
 }
 
 let UploadBooksContainer = connect(mapStateToProps,
-    { loadText, toggleIsLoading, fetchSentencesCount, setSentencesCount, toggleIsFetching })
+    { loadText, toggleIsLoading, fetchSentencesCount, setSentencesCount, setButtonCaption, toggleIsFetching })
     (UploadBooksContainerAPI);
 
 export default UploadBooksContainer;

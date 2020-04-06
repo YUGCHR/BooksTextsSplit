@@ -20,14 +20,13 @@ const loadButton = (props) => {
 
 const UploadBooks = (props) => {
 
-    let setButtonCaption = ['English', 'Russian'];
-    setButtonCaption[0] = props.isLoaded[0]
-        ? 'loaded count = ' + props.sentencesCount[0]
-        : 'Load English Text -/' + props.sentencesCount[0];
-    setButtonCaption[1] = props.isLoaded[1]
-        ? 'loaded count = ' + props.sentencesCount[1]
-        : 'Load Russian Text -/' + props.sentencesCount[1];
+    let engLanguageId = 0;
+    let rusLanguageId = 1;
 
+    /* {pages.map(p => {
+        return <span className={getClassName(p)} onClick={(e) => { props.onPageChanges(p); }}>{p}</span>
+    })} */
+    
     let engTexTitle = 'English text title: ';
     let currentEngSentence = (props) => { return <Sentence text={engTexTitle + props.sentenceText} /> };
     let engFirstSentence = currentEngSentence(props.engSentences[0]);
@@ -41,7 +40,11 @@ const UploadBooks = (props) => {
             <div>
                 <div className={s.twoColumnsTop}>
                     <p>
-                        <button /* disabled = {props.isLoaded} */ onClick={() => { props.loadText(0) }}> {setButtonCaption[0]} </button>
+                        <button 
+                        disabled = {props.isTextLoaded[engLanguageId]} 
+                        onClick={() => { props.loadText(engLanguageId) }}> 
+                        {props.setButtonCaption(engLanguageId)} 
+                        </button>
                     </p>
                 </div>
                 <div className={s.twoColumnsBottom}>
@@ -54,7 +57,11 @@ const UploadBooks = (props) => {
             <div>
                 <div className={s.twoColumnsTop}>
                     <p>
-                        <button /* disabled = {props.isLoaded} */ onClick={() => { props.loadText(1) }}> {setButtonCaption[1]} </button>
+                        <button
+                        disabled = {props.isTextLoaded[rusLanguageId]} 
+                        onClick={() => { props.loadText(rusLanguageId) }}> 
+                        {props.setButtonCaption(rusLanguageId)} 
+                        </button>
                     </p>
                 </div>
                 <div className={s.twoColumnsBottom}>
