@@ -72,6 +72,7 @@ class UploadBooksContainerAPI extends React.Component {
                 sentencesCount={this.props.sentencesCount}                
                 setButtonCaption={this.setButtonCaption}
                 isTextLoaded={this.props.isTextLoaded}
+                creativeArrayLanguageId={this.props.creativeArrayLanguageId}
                 buttonsCaptions={this.props.buttonsCaptions}
                 buttonsTextsParts={this.props.buttonsTextsParts}
                 fetchSentencesCount={this.fetchSentencesCount}
@@ -86,6 +87,7 @@ let mapStateToProps = (state) => {
         isTextLoaded: state.uploadBooksPage.isTextLoaded,
         engSentences: state.uploadBooksPage.engSentences,
         rusSentences: state.uploadBooksPage.rusSentences,
+        creativeArrayLanguageId: state.uploadBooksPage.creativeArrayLanguageId,
         buttonsCaptions: state.uploadBooksPage.buttonsCaptions,
         buttonsTextsParts: state.uploadBooksPage.buttonsTextsParts,
         isFetching: state.uploadBooksPage.isFetching

@@ -1,0 +1,13 @@
+.loadButtons:enabled{
+    color: black;
+    font-weight: normal;
+    background-color: lightgray;
+}
+
+.loadButtons:disabled{
+    color: darkblue;
+    font-weight: bold;
+    background-color: darkgray;
+    border: 1px solid blue;
+}
+

@@ -85,13 +85,12 @@ let initialState = {
         { languageId: 1, sentenceText: '31 Архив был дружественным, иерархия ключей выстраивалась и вела исследователей.' },
         { languageId: 1, sentenceText: '32 Это открытие прославит сам Страум.' }
     ],
-    sentencesOnPageTop: 10,
-    engSentencesCount: 777,
-    rusSentencesCount: 888,
-    sentencesCount: [777, 888],
+    sentencesOnPageTop: 10,    
+    sentencesCount: [777, 888], //engSentencesCount: 777, rusSentencesCount: 888
     emptyVariable: null,
     isTextLoaded: [false, false],
-    buttonsCaptions: ['English', 'Russian'],
+    creativeArrayLanguageId: [0, 1], //engLanguageId = 0; rusLanguageId = 1;
+    buttonsCaptions: ['English', 'Russian'], //unused
     buttonsTextsParts: ['Load English Text -/', 'Load Russian Text -/'],
     isFetching: false
 }

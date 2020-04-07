@@ -20,13 +20,6 @@ const loadButton = (props) => {
 
 const UploadBooks = (props) => {
 
-    let engLanguageId = 0;
-    let rusLanguageId = 1;
-
-    /* {pages.map(p => {
-        return <span className={getClassName(p)} onClick={(e) => { props.onPageChanges(p); }}>{p}</span>
-    })} */
-    
     let engTexTitle = 'English text title: ';
     let currentEngSentence = (props) => { return <Sentence text={engTexTitle + props.sentenceText} /> };
     let engFirstSentence = currentEngSentence(props.engSentences[0]);
@@ -37,41 +30,25 @@ const UploadBooks = (props) => {
 
     return (<div>
         <div>
-            <div>
-                <div className={s.twoColumnsTop}>
-                    <p>
-                        <button 
-                        disabled = {props.isTextLoaded[engLanguageId]} 
-                        onClick={() => { props.loadText(engLanguageId) }}> 
-                        {props.setButtonCaption(engLanguageId)} 
+            <p>
+                {props.creativeArrayLanguageId.map((i) => {
+                    return <div>
+                        <button className={s.loadButtons}
+                            disabled={props.isTextLoaded[i]}
+                            onClick={(e) => { props.loadText(i); }}>
+                            {props.setButtonCaption(i)}
                         </button>
-                    </p>
-                </div>
-                <div className={s.twoColumnsBottom}>
-                    <p>
-                        {engFirstSentence}
-                    </p>
-                </div>
-            </div>
-            <p></p>
-            <div>
-                <div className={s.twoColumnsTop}>
-                    <p>
-                        <button
-                        disabled = {props.isTextLoaded[rusLanguageId]} 
-                        onClick={() => { props.loadText(rusLanguageId) }}> 
-                        {props.setButtonCaption(rusLanguageId)} 
-                        </button>
-                    </p>
-                </div>
-                <div className={s.twoColumnsBottom}>
-                    <p>
-                        {rusFirstSentence}
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div >)
+                        <div className={s.twoColumnsBottom}>
+                            <p>
+                                {engFirstSentence}
+                            </p>
+                        </div>
+                    </div>
+                }
+                )}
+            </p>
+        </div >
+    </div>)
 }
 
 export default UploadBooks;
