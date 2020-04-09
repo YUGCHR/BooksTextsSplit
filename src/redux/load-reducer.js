@@ -1,16 +1,19 @@
 const LOAD_TEXT = 'LOAD-TEXT';
 const FETCH_SENTENCE_COUNT = 'FETCH-SENTENCE-COUNT';
 const SET_SENTENCES_COUNT = 'SET-SENTENCES-COUNT';
+const SET_BOOK_TITLE = 'SET-BOOK-TITLE';
 const SET_BUTTON_CAPTION = 'SET-BUTTON-CAPTION';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 const TOGGLE_IS_LOADING = 'TOGGLE-IS-LOADING';
 
 let initialState = {
-    engTextTitle: {
-        languageId: 0,
-        authorName: 'Vernor Vinge',
-        bookTitle: 'A Fire Upon the Deep'
-    },
+    engTextTitle: [
+        { languageId: 0, authorName: '1 Vernor Vinge', bookTitle: '1 A Fire Upon the Deep' },
+        { languageId: 0, authorName: '2 Vernor Vinge', bookTitle: '2 A Fire Upon the Deep' },
+        { languageId: 0, authorName: '3 Vernor Vinge', bookTitle: '3 A Fire Upon the Deep' },
+        { languageId: 0, authorName: '4 Vernor Vinge', bookTitle: '4 A Fire Upon the Deep' },
+        { languageId: 0, authorName: '5 Vernor Vinge', bookTitle: '5 A Fire Upon the Deep' },
+    ],
     engSentences: [
         { languageId: 0, sentenceText: '01 How to explain?' },
         { languageId: 0, sentenceText: '02 How to describe?' },
@@ -46,11 +49,13 @@ let initialState = {
         { languageId: 0, sentenceText: '32 Straum itself would be famous for this.' }
     ],
     lastSentenceNumber: null,
-    rusTextTitle: {
-        languageId: 1,
-        authorName: 'Вернор Виндж',
-        bookTitle: 'Пламя над бездной'
-    },
+    rusTextTitle: [
+        { languageId: 1, authorName: '1 Вернор Виндж', bookTitle: '1 Пламя над бездной' },
+        { languageId: 1, authorName: '1 Вернор Виндж', bookTitle: '1 Пламя над бездной' },
+        { languageId: 1, authorName: '1 Вернор Виндж', bookTitle: '1 Пламя над бездной' },
+        { languageId: 1, authorName: '1 Вернор Виндж', bookTitle: '1 Пламя над бездной' },
+        { languageId: 1, authorName: '1 Вернор Виндж', bookTitle: '1 Пламя над бездной' }
+    ],
     rusSentences: [
         { languageId: 1, sentenceText: '01 Как объяснить?' },
         { languageId: 1, sentenceText: '02 Как описать?' },
@@ -90,8 +95,12 @@ let initialState = {
     emptyVariable: null,
     isTextLoaded: [false, false],
     creativeArrayLanguageId: [0, 1], //engLanguageId = 0; rusLanguageId = 1;
-    buttonsCaptions: ['English', 'Russian'], //unused
+    bookTitle: [
+        { languageId: 0, authorName: '1', bookTitle: '1' },
+        { languageId: 1, authorName: '1', bookTitle: '1' }
+    ],
     buttonsTextsParts: ['Load English Text -/', 'Load Russian Text -/'],
+    loadedTextTitle: ['English book title: ', 'Russian book title: '],
     isFetching: false
 }
 
@@ -123,6 +132,13 @@ const uploadBooksReducer = (state = initialState, action) => {
             stateCopy.sentencesCount[action.languageId] = action.count;
             return stateCopy;
         }
+        case SET_BOOK_TITLE: {
+            let stateCopy = { ...state };
+            stateCopy.bookTitle = { ...state.bookTitle };
+            stateCopy.bookTitle[0] = stateCopy.engTextTitle[action.bookId];
+            stateCopy.bookTitle[1] = stateCopy.rusTextTitle[action.bookId];
+            return stateCopy;
+        }
         case SET_BUTTON_CAPTION: {
             let stateCopy = { ...state };            
             return stateCopy;
@@ -139,6 +155,7 @@ export const loadText = (languageId) => ({ type: LOAD_TEXT, languageId });
 export const toggleIsLoading = (isTextLoaded, languageId) => ({ type: TOGGLE_IS_LOADING, isTextLoaded, languageId });
 export const fetchSentencesCount = (languageId) => ({ type: FETCH_SENTENCE_COUNT, languageId });
 export const setSentencesCount = (count, languageId) => ({ type: SET_SENTENCES_COUNT, count, languageId });
+export const setBookTitle = (bookId) => ({ type: SET_BOOK_TITLE, bookId });
 export const setButtonCaption = () => ({ type: SET_BUTTON_CAPTION });
 export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching });
 
