@@ -11,38 +11,39 @@ const Sentence = (props) => {
 }
 
 let ToReadAndTranslate = (props) => {
-    let lastSentenceNumber = props.readAndTranslatePage.lastSentenceNumber;
-    let readingSentence = props.readAndTranslatePage.readingSentenceNumber;
 
-    let sentencesOnPageTop = props.readAndTranslatePage.sentencesOnPageTop;
+    let lastSentenceNumber = props.lastSentenceNumber;
+    let readingSentence = props.readingSentenceNumber;
+
+    let sentencesOnPageTop = props.sentencesOnPageTop;
     let startSentenceTop = readingSentence - sentencesOnPageTop;
     let endSentenceTop = startSentenceTop + sentencesOnPageTop;
 
-    let showTopSentences = props.readAndTranslatePage.engSentences.slice(startSentenceTop, endSentenceTop).map((sts) => {
+    let showTopSentences = props.engSentences.slice(startSentenceTop, endSentenceTop).map((sts) => {
         return <Sentence text={sts.sentenceText} />
     });
 
-    let sentencesOnPageBottom = props.readAndTranslatePage.sentencesOnPageBottom;
+    let sentencesOnPageBottom = props.sentencesOnPageBottom;
     let startSentenceBottom = readingSentence + 1;
     let endSentenceBottom = startSentenceBottom + sentencesOnPageBottom;
 
-    let showBottomSentences = props.readAndTranslatePage.engSentences.slice(startSentenceBottom, endSentenceBottom).map((sbs) => {
+    let showBottomSentences = props.engSentences.slice(startSentenceBottom, endSentenceBottom).map((sbs) => {
         return <Sentence text={sbs.sentenceText} />
     });
 
-    let currentEngSentence = (props) => { return <Sentence text={props.id + props.sentenceText} /> };
-    let showCurrentEngSentenceContext = currentEngSentence(props.readAndTranslatePage.engSentences[readingSentence]);
+    let showCurrentEngSentenceContext = null;
+    if(props.engSentences[readingSentence])
+    {
+    let currentEngSentence = (props1) => { return <Sentence text={props1.id + props1.sentenceText} /> };
+    showCurrentEngSentenceContext = currentEngSentence(props.engSentences[readingSentence]);
+    }
 
-    let currentRusSentence = [props.readAndTranslatePage.rusSentences[readingSentence]].map((crs) => {
-        return <Sentence text={crs.id + crs.sentenceText} />
-    });
-
-    props.readAndTranslatePage.engSentences.map(u => {
-        Axios
-            .post("https://localhost:5001/api/TodoItems", u)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error))})
+    let showCurrentRusSentenceContext = null;
+    if(props.rusSentences[readingSentence])
+    {
+    let currentRusSentence = (props1) => { return <Sentence text={props1.id + props1.sentenceText} /> };
+    showCurrentRusSentenceContext = currentRusSentence(props.rusSentences[readingSentence]);
+    }
     
         return (<div>
             <div className={s.twoColumnsReading}>
@@ -73,7 +74,7 @@ let ToReadAndTranslate = (props) => {
             <div>
             </div>
             <div className={s.translateLine}>
-                {currentRusSentence}
+                {showCurrentRusSentenceContext}
             </div>
             <div>
                 <div>

@@ -1,8 +1,5 @@
-const LOAD_TEXT = 'LOAD-TEXT';
-const FETCH_SENTENCE_COUNT = 'FETCH-SENTENCE-COUNT';
 const SET_SENTENCES_COUNT = 'SET-SENTENCES-COUNT';
 const SET_BOOK_TITLE = 'SET-BOOK-TITLE';
-const SET_BUTTON_CAPTION = 'SET-BUTTON-CAPTION';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 const TOGGLE_IS_LOADING = 'TOGGLE-IS-LOADING';
 
@@ -51,10 +48,10 @@ let initialState = {
     lastSentenceNumber: null,
     rusTextTitle: [
         { languageId: 1, authorName: '1 Вернор Виндж', bookTitle: '1 Пламя над бездной' },
-        { languageId: 1, authorName: '1 Вернор Виндж', bookTitle: '1 Пламя над бездной' },
-        { languageId: 1, authorName: '1 Вернор Виндж', bookTitle: '1 Пламя над бездной' },
-        { languageId: 1, authorName: '1 Вернор Виндж', bookTitle: '1 Пламя над бездной' },
-        { languageId: 1, authorName: '1 Вернор Виндж', bookTitle: '1 Пламя над бездной' }
+        { languageId: 1, authorName: '2 Вернор Виндж', bookTitle: '2 Пламя над бездной' },
+        { languageId: 1, authorName: '3 Вернор Виндж', bookTitle: '3 Пламя над бездной' },
+        { languageId: 1, authorName: '4 Вернор Виндж', bookTitle: '4 Пламя над бездной' },
+        { languageId: 1, authorName: '5 Вернор Виндж', bookTitle: '5 Пламя над бездной' }
     ],
     rusSentences: [
         { languageId: 1, sentenceText: '01 Как объяснить?' },
@@ -90,7 +87,7 @@ let initialState = {
         { languageId: 1, sentenceText: '31 Архив был дружественным, иерархия ключей выстраивалась и вела исследователей.' },
         { languageId: 1, sentenceText: '32 Это открытие прославит сам Страум.' }
     ],
-    sentencesOnPageTop: 10,    
+    sentencesOnPageTop: 10,
     sentencesCount: [777, 888], //engSentencesCount: 777, rusSentencesCount: 888
     emptyVariable: null,
     isTextLoaded: [false, false],
@@ -104,26 +101,28 @@ let initialState = {
     isFetching: false
 }
 
-let sentencesOnPageTop = initialState.sentencesOnPageTop;
 let lastSentenceNumber = initialState.engSentences.length;
 initialState.lastSentenceNumber = lastSentenceNumber;
+let sentencesOnPageTop = initialState.sentencesOnPageTop;
+initialState.readingSentenceNumber = sentencesOnPageTop;
+let emptyLineTop = Array(sentencesOnPageTop).fill({ languageId: 11, sentenceText: '-' }); // another languageId adduces to wrong sentences count from server
+let emptyLineBottom = Array(sentencesOnPageTop).fill({ languageId: 22, sentenceText: '-' });
+initialState.engSentences = emptyLineTop.concat(initialState.engSentences).concat(emptyLineBottom);
+initialState.rusSentences = emptyLineTop.concat(initialState.rusSentences).concat(emptyLineBottom);
+
+let n = 1;
+initialState.engSentences = initialState.engSentences.map(u => ({...u, id: n++}));
+//n = 1; - server needs id without doubling
+initialState.rusSentences = initialState.rusSentences.map(u => ({...u, id: n++}));
 
 const uploadBooksReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case LOAD_TEXT: {
-            let stateCopy = { ...state };
-            return stateCopy;
-        }
         case TOGGLE_IS_LOADING: {
             /* return { ...state, isEngLoaded: action.isEngLoaded } */
             let stateCopy = { ...state };
             stateCopy.isTextLoaded = { ...state.isTextLoaded };
             stateCopy.isTextLoaded[action.languageId] = action.isTextLoaded;
-            return stateCopy;
-        }
-        case FETCH_SENTENCE_COUNT: {
-            let stateCopy = { ...state };
             return stateCopy;
         }
         case SET_SENTENCES_COUNT: {
@@ -135,13 +134,14 @@ const uploadBooksReducer = (state = initialState, action) => {
         case SET_BOOK_TITLE: {
             let stateCopy = { ...state };
             stateCopy.bookTitle = { ...state.bookTitle };
-            stateCopy.bookTitle[0] = stateCopy.engTextTitle[action.bookId];
-            stateCopy.bookTitle[1] = stateCopy.rusTextTitle[action.bookId];
-            return stateCopy;
-        }
-        case SET_BUTTON_CAPTION: {
-            let stateCopy = { ...state };            
-            return stateCopy;
+            switch (action.languageId) {
+                case 0:
+                    stateCopy.bookTitle[action.languageId] = stateCopy.engTextTitle[action.bookId];
+                    return stateCopy;
+                case 1:
+                    stateCopy.bookTitle[action.languageId] = stateCopy.rusTextTitle[action.bookId];
+                    return stateCopy;
+            }
         }
         case TOGGLE_IS_FETCHING: {
             return { ...state, isFetching: action.isFetching };
@@ -151,12 +151,9 @@ const uploadBooksReducer = (state = initialState, action) => {
     }
 }
 
-export const loadText = (languageId) => ({ type: LOAD_TEXT, languageId });
 export const toggleIsLoading = (isTextLoaded, languageId) => ({ type: TOGGLE_IS_LOADING, isTextLoaded, languageId });
-export const fetchSentencesCount = (languageId) => ({ type: FETCH_SENTENCE_COUNT, languageId });
 export const setSentencesCount = (count, languageId) => ({ type: SET_SENTENCES_COUNT, count, languageId });
-export const setBookTitle = (bookId) => ({ type: SET_BOOK_TITLE, bookId });
-export const setButtonCaption = () => ({ type: SET_BUTTON_CAPTION });
+export const setBookTitle = (bookId, languageId) => ({ type: SET_BOOK_TITLE, bookId, languageId });
 export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching });
 
 export default uploadBooksReducer;
