@@ -7,7 +7,7 @@ const TOGGLE_IS_LOADING = 'TOGGLE-IS-LOADING';
 
 let initialState = {
     engSentences: [],
-    lastSentenceNumber: 30,
+    lastSentenceNumber: 32,
     rusSentences: [],
     sentencesOnPage: 20,
     sentencesOnPageTop: 10,
@@ -18,21 +18,23 @@ let initialState = {
     emptyVariable: null
 }
 
-let sentencesOnPageTop = initialState.sentencesOnPageTop;
-initialState.readingSentenceNumber = sentencesOnPageTop;
+initialState.readingSentenceNumber = initialState.sentencesOnPageTop;
 let lastSentenceNumber = initialState.lastSentenceNumber;
 
-const readAndTranslateReducer = (state = initialState, action) => {
-    let newSentenceNumber = action.newSentenceNumber;
-    let sentencesOnPageTop = initialState.sentencesOnPageTop;
+const readAndTranslateReducer = (state = initialState, action) => {    
+    let sentencesOnPageTop = initialState.sentencesOnPageTop;    
     switch (action.type) {
         case SCROLL_LINE_UP: {
-            let newSentenceNumberMinus = newSentenceNumber > sentencesOnPageTop ? newSentenceNumber - 1 : newSentenceNumber;
+            let newSentenceNumberMinus = action.newSentenceNumber > sentencesOnPageTop
+                ? action.newSentenceNumber - 1
+                : action.newSentenceNumber;
             let stateCopy = { ...state, readingSentenceNumber: newSentenceNumberMinus };
             return stateCopy;
         }
         case SCROLL_LINE_DOWN: {
-            let newSentenceNumberPlus = newSentenceNumber < (lastSentenceNumber + sentencesOnPageTop - 1) ? newSentenceNumber + 1 : newSentenceNumber;
+            let newSentenceNumberPlus = action.newSentenceNumber < (lastSentenceNumber + sentencesOnPageTop - 1)
+                ? action.newSentenceNumber + 1
+                : action.newSentenceNumber;
             let stateCopy = { ...state, readingSentenceNumber: newSentenceNumberPlus };
             return stateCopy;
         }
@@ -44,25 +46,29 @@ const readAndTranslateReducer = (state = initialState, action) => {
             return stateCopy;
         }
         case SET_SENTENCES_COUNT: {
-            
             let stateCopy = { ...state };
             stateCopy.sentencesCount = { ...state.sentencesCount };
             stateCopy.sentencesCount[action.languageId] = action.count;
+            //lastSentenceNumber = stateCopy.sentencesCount[0];
             return stateCopy;
         }
         case SET_SENTENCES: {
             let stateCopy = { ...state };
             switch (action.languageId) {
                 case 0:
-                    return { 
-                        ...state, 
-                        engSentences: action.sentences}
+                    return {
+                        ...state,
+                        engSentences: action.sentences
+                    }
                 case 1:
-                    return { 
-                        ...state, 
-                        rusSentences: action.sentences}
+                    return {
+                        ...state,
+                        rusSentences: action.sentences
+                    }
+                default:
+                    return stateCopy;
             }
-        }        
+        }
         case TOGGLE_IS_FETCHING: {
             return { ...state, isFetching: action.isFetching };
         }

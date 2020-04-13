@@ -105,15 +105,15 @@ let lastSentenceNumber = initialState.engSentences.length;
 initialState.lastSentenceNumber = lastSentenceNumber;
 let sentencesOnPageTop = initialState.sentencesOnPageTop;
 initialState.readingSentenceNumber = sentencesOnPageTop;
-let emptyLineTop = Array(sentencesOnPageTop).fill({ languageId: 11, sentenceText: '-' }); // another languageId adduces to wrong sentences count from server
-let emptyLineBottom = Array(sentencesOnPageTop).fill({ languageId: 22, sentenceText: '-' });
-initialState.engSentences = emptyLineTop.concat(initialState.engSentences).concat(emptyLineBottom);
-initialState.rusSentences = emptyLineTop.concat(initialState.rusSentences).concat(emptyLineBottom);
+let engEmptyLines = Array(sentencesOnPageTop).fill({ languageId: 0, sentenceText: '-' });
+let rusEmptyLines = Array(sentencesOnPageTop).fill({ languageId: 1, sentenceText: '-' });
+initialState.engSentences = engEmptyLines.concat(initialState.engSentences).concat(engEmptyLines);
+initialState.rusSentences = rusEmptyLines.concat(initialState.rusSentences).concat(rusEmptyLines); // emptu lines on top - (text) - empty lines on bottom
 
 let n = 1;
-initialState.engSentences = initialState.engSentences.map(u => ({...u, id: n++}));
-//n = 1; - server needs id without doubling
-initialState.rusSentences = initialState.rusSentences.map(u => ({...u, id: n++}));
+initialState.engSentences = initialState.engSentences.map(u => ({ ...u, id: n++ }));
+//n = 1; - server needs id-s without doubling
+initialState.rusSentences = initialState.rusSentences.map(u => ({ ...u, id: n++ }));
 
 const uploadBooksReducer = (state = initialState, action) => {
 

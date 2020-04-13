@@ -32,7 +32,7 @@ class UploadBooksContainerAPI extends React.Component {
                 this.props.sentencesCount[languageId] === 0
                     ? this.props.toggleIsLoading(false, languageId)
                     : this.props.toggleIsLoading(true, languageId);
-                    if (this.props.sentencesCount[languageId] != 0) {this.props.setBookTitle(0, languageId)}
+                    if (this.props.sentencesCount[languageId] !== 0) {this.props.setBookTitle(0, languageId)}
             });
     }
 //toDo - to select the book pair first - instead straight text load

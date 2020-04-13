@@ -1,5 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
+import ReactScrollWheelHandler from 'react-scroll-wheel-handler';
 import { connect } from 'react-redux';
 import { scrollLineUp, scrollLineDown, toggleIsLoading, setSentencesCount, setSentences, toggleIsFetching } from '../../redux/read-reducer';
 import ToReadAndTranslate from './ToReadAndTranslate';
@@ -21,8 +22,7 @@ class ToReadAndTranslateContainerAPI extends React.Component {
             .then(Response => {
                 
                 this.props.toggleIsFetching(false);
-                this.props.setSentencesCount(Response.data.sentencesCount, languageId);
-                debugger;
+                this.props.setSentencesCount(Response.data.sentencesCount, languageId);            
                 this.props.sentencesCount[languageId] === 0
                     ? this.props.toggleIsLoading(false, languageId)
                     : this.props.toggleIsLoading(true, languageId);
@@ -38,7 +38,7 @@ class ToReadAndTranslateContainerAPI extends React.Component {
     }
 
     render() {
-        return <>
+        return <>        
             {this.props.isFetching ? <Preloader /> : null}
             <ToReadAndTranslate
                 lastSentenceNumber={this.props.lastSentenceNumber}

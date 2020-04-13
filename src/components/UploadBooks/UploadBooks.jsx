@@ -1,5 +1,4 @@
 import React from 'react';
-import Axios from 'axios';
 import s from './UploadBooks.module.css'
 
 let loadedBookTitle = (loadedTextTitle, engTextTitle, languageId, isTextLoaded) => {
