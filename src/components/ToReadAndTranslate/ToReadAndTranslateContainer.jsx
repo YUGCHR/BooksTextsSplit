@@ -49,7 +49,7 @@ class ToReadAndTranslateContainerAPI extends React.Component {
                 engSentences={this.props.engSentences}
                 rusSentences={this.props.rusSentences}
                 scrollLineUp={this.props.scrollLineUp}
-                scrollLineDown={this.props.scrollLineDown}
+                scrollLineDown={this.props.scrollLineDown}                
             />
         </>
     }

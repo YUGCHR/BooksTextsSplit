@@ -97,7 +97,7 @@ let initialState = {
         { languageId: 1, authorName: '1', bookTitle: '1' }
     ],
     buttonsTextsParts: ['Load English Text -/', 'Load Russian Text -/'],
-    loadedTextTitle: ['English book title: ', 'Russian book title: '],
+    loadedTextTitle: ['You loaded English book --> ', 'You loaded Russian book--> '],
     isFetching: false
 }
 

@@ -39,8 +39,9 @@ const UploadBooks = (props) => {
                         {loadedButtonsNames(props.setButtonCaption, props.loadText, languageId, props.isTextLoaded)}
                     </div>
                     <div className={s.twoColumnsBottom}>
+
+                        {loadedBookTitle(props.loadedTextTitle, props.bookTitle, languageId, props.isTextLoaded)}
                         <p>
-                            {loadedBookTitle(props.loadedTextTitle, props.bookTitle, languageId, props.isTextLoaded)}
                         </p>
                     </div>
                 </div>

@@ -20,7 +20,7 @@ const showCurrentSentenceContext = (currentLangSentence) => {
 }
 
 let ToReadAndTranslate = (props) => {
-    let r = props.readingSentenceNumber;// try to do local functions (r+1) & (r*1) - without flux
+    let r = props.readingSentenceNumber;
     let sentencesOnPageTop = props.sentencesOnPageTop;
 
     return (<div>
@@ -55,7 +55,7 @@ let ToReadAndTranslate = (props) => {
                     {showCurrentSentenceContext(props.rusSentences[r])}
                 </div>
                 <div>
-                    <div>
+                    <div className={s.textBottom}>
                         {showSentences(props.engSentences, r + 1, sentencesOnPageTop)}
                     </div>
                     <div className={s.twoColumnsBottom}>

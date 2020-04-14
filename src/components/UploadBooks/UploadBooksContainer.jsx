@@ -17,7 +17,7 @@ class UploadBooksContainerAPI extends React.Component {
     setButtonCaption = (languageId) => {
         return (
             this.props.isTextLoaded[languageId]
-                ? 'loaded count = ' + this.props.sentencesCount[languageId]
+                ? 'loaded text sentences count = ' + this.props.sentencesCount[languageId]
                 : this.props.buttonsTextsParts[languageId] + this.props.sentencesCount[languageId]
         );
     }
