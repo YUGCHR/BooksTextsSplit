@@ -44,11 +44,11 @@ class UploadBooksContainerAPI extends React.Component {
         if (languageId === 1) {
             allSentences.text = this.props.rusSentences;
         };
-
+//withCredentials: true, { headers: {"API-KEY": "6dd517b6-826d-4942-ab0a-022445b74fcd"} }
         if (this.props.sentencesCount[languageId] === 0) {
             this.props.toggleIsFetching(true);
             Axios
-                .post('https://localhost:5001/api/BookTexts', allSentences)
+                .post('https://localhost:5001/api/BookTexts', allSentences, { withCredentials: true, headers: {"API-KEY": "6dd517b6-826d-4942-ab0a-022445b74fcd"} } )
                 .then(Response => {
                     /* (Response.data.totalCount - to add! */
                     this.props.toggleIsFetching(false);
