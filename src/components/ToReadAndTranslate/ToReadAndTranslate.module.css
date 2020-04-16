@@ -1,54 +1,88 @@
-
-
-.editLine{
-    color: black;
-    background-color: coral;
+.editWrapper {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 8fr 1fr;
+    grid-gap: 0vw;
 }
 
-.currentSentence{
-    position: fixed;
-    top: 287px;
-    left: 377px;
-    height: 50px;
-    width: 963px;
-    border: 3px solid #73AD21;
+.lastSentenceNumber {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    color: black;
+    background-color: yellowgreen;
+}
+
+.editLine {
+    grid-column: 2/3;
+    grid-row: 1/3;
+    color: lightgreen;
+    background-color: darkred;
+}
+
+.readingSentenceNumber {
+    grid-column: 3/4;
+    grid-row: 1/2;
+    background-color: darkblue;
+}
+
+.sentencesWrapper {
+    display: grid;
+    position: relative;
+    /* grid-template-rows: 0.1fr 5fr 1fr 1fr 5fr; */
+    grid-template-rows: 1vh 35vh 8vh 6vh 35vh;
+    /* grid-template-columns: 12fr 1fr; */
+    /* grid-template-columns: 70vw 10vw; */
+    grid-template-columns: 90% 10%;
+    grid-gap: 0vw;
+    background-color: orange;
+}
+
+.topMargin {
+    grid-column: 1/3;
+    grid-row: 1/2;
+    background-color: rgb(156, 149, 156);
+}
+
+.topSentences {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    color: lightgreen;
+    background-color: darkgray;
+}
+
+.buttonUp {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    background-color: yellowgreen;
+}
+
+.engReadingSentence {
+    grid-column: 1/3;
+    grid-row: 3/4;
     color: darkgreen;
     background-color: whitesmoke;
     text-align: left;
 }
 
-.translateLine{
-    position: fixed;
-    top: 350px;
-    left: 377px;
-    width: 985px;
-    height: 40px;
-    border: 3px solid #73AD21;
+.rusReadingSentence {
+    grid-column: 1/3;
+    grid-row: 4/5;
     color: black;
     background-color: coral;
     font-size: smaller;
 }
 
-.textBottom{
-    position: fixed;
-    top: 400px;
-    left: 377px;
-    width: 990px;
-    height: 250px;
+.bottomSentences {
+    grid-column: 1/2;
+    grid-row: 5/6;
     color: lightgreen;
-    background-color: darkgreen;  
+    background-color: darkgray;
+    overflow: hidden;
 }
 
-.twoColumnsTop{    
-    float: right;
-}
-
-.twoColumnsReading{    
-    float: right;
-    color: black;
-    background-color: lightblue;
-}
-
-.twoColumnsBottom{    
-    float: right;
+.buttonDown {
+    grid-column: 2/3;
+    grid-row: 5/6;
+    background-color: yellowgreen;
+    vertical-align: middle;
 }

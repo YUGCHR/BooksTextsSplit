@@ -24,48 +24,45 @@ let ToReadAndTranslate = (props) => {
     let sentencesOnPageTop = props.sentencesOnPageTop;
 
     return (<div>
-        <div>
-            <ReactScrollWheelHandler
-                upHandler={() => { props.scrollLineUp(r) }}
-                downHandler={() => { props.scrollLineDown(r) }}
-                timeout={100} >
-                <div className={s.twoColumnsReading}>
-                    {props.lastSentenceNumber}
-                </div>
-                <div className={s.editLine}>
-                    Edit line
+        <div className={s.editWrapper}>
+            <div className={s.lastSentenceNumber}>
+                {props.lastSentenceNumber}
             </div>
-                <div>
-                    <div className={s.twoColumnsTop}>
-                        <p>
-                            <button onClick={() => { props.scrollLineUp(r) }}>Scroll Line Up</button>
-                        </p>
-                    </div>
-                    <div>
-                        {showSentences(props.engSentences, r - sentencesOnPageTop, sentencesOnPageTop)}
-                    </div>
+            <div className={s.editLine}>
+                Edit line
                 </div>
-                <div className={s.twoColumnsReading}>
-                    {r}
+            <div className={s.readingSentenceNumber}>
+                {r}
+            </div>
+        </div>
+        <div></div>
+        <ReactScrollWheelHandler
+            upHandler={() => { props.scrollLineUp(r) }}
+            downHandler={() => { props.scrollLineDown(r) }}
+            timeout={100} >
+            <div className={s.sentencesWrapper}>
+                <div className={s.topMargin}></div>
+                <div className={s.topSentences}>
+                    {showSentences(props.engSentences, r - sentencesOnPageTop, sentencesOnPageTop)}
                 </div>
-                <div className={s.currentSentence}>
+                <div className={s.buttonUp}>
+                    <button onClick={() => { props.scrollLineUp(r) }}>Scroll Line Up</button>
+                </div>
+                <div className={s.engReadingSentence}>
                     {showCurrentSentenceContext(props.engSentences[r])}
                 </div>
-                <div className={s.translateLine}>
+                <div className={s.rusReadingSentence}>
                     {showCurrentSentenceContext(props.rusSentences[r])}
                 </div>
-                <div>
-                    <div className={s.textBottom}>
-                        {showSentences(props.engSentences, r + 1, sentencesOnPageTop)}
-                    </div>
-                    <div className={s.twoColumnsBottom}>
-                        <p>
-                            <button onClick={() => { props.scrollLineDown(r) }}>Scroll Line Down</button>
-                        </p>
-                    </div>
+                <div className={s.bottomSentences}>
+                    {showSentences(props.engSentences, r + 1, sentencesOnPageTop)}
                 </div>
-            </ReactScrollWheelHandler>
-        </div>
+                <div className={s.buttonDown}>
+                    <button onClick={() => { props.scrollLineDown(r) }}>Scroll Line Down</button>
+                </div>
+            </div>
+        </ReactScrollWheelHandler>
+
     </div >)
 }
 
