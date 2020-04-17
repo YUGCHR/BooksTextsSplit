@@ -5,7 +5,7 @@ import s from './ToReadAndTranslate.module.css'
 const showSentences = (langSentences, startSentence, sentencesOnPageTop) => {
     let endSentence = startSentence + sentencesOnPageTop;
     return langSentences.slice(startSentence, endSentence).map((sts) => {
-        return <div >
+        return <div /* className={s.oneSentence} */>
             {sts.sentenceText}
         </div>
     })
@@ -43,7 +43,9 @@ let ToReadAndTranslate = (props) => {
             <div className={s.sentencesWrapper}>
                 <div className={s.topMargin}></div>
                 <div className={s.topSentences}>
+                    <div className={s.topFlexSentences}>
                     {showSentences(props.engSentences, r - sentencesOnPageTop, sentencesOnPageTop)}
+                    </div>
                 </div>
                 <div className={s.buttonUp}>
                     <button onClick={() => { props.scrollLineUp(r) }}>Scroll Line Up</button>

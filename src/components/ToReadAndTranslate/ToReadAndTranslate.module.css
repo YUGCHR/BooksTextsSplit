@@ -27,7 +27,6 @@
 
 .sentencesWrapper {
     display: grid;
-    position: relative;
     /* grid-template-rows: 1% 47% 8% 6% 47%; */
     /* grid-template-rows: 1fr 35fr 8fr 6fr 35fr; */
     grid-template-rows: 1vh 30vh 8vh 6vh 30vh;
@@ -35,25 +34,49 @@
     /* grid-template-columns: 70vw 10vw; */
     grid-template-columns: 90% 10%;
     grid-gap: 0vw;
-    align-items: stretch;
-    justify-items: stretch;
     background-color: orange;
 }
 
 .topMargin {
     grid-column: 1/3;
     grid-row: 1/2;
-    background-color: magenta;
+    background-color: cyan;
 }
 
 .topSentences {
     grid-column: 1/2;
     grid-row: 2/3;
-    vertical-align: bottom;
-    color: green;
-    background-color: darkgray;
+    background-color: magenta;
     overflow: hidden;
 }
+
+.topFlexSentences {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: green;
+    background-color: darkgray;
+    justify-content: flex-end;
+}
+
+.topFlexSentences>div {
+    color: darkblue;
+    background-color: lightgreen;
+    height: 100%;
+    width: 100%;
+    justify-content: left;
+    text-align: left;
+}
+
+
+/* .oneSentence {
+    height: 20px;
+    color: blue;
+    background-color: darkgray;
+    overflow: hidden;
+    justify-content: left;
+    text-align: left;
+} */
 
 .buttonUp {
     grid-column: 2/3;
@@ -83,6 +106,7 @@
     color: lightgreen;
     background-color: darkgray;
     overflow: hidden;
+    align-items: flex-end;
 }
 
 .buttonDown {
