@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactScrollWheelHandler from 'react-scroll-wheel-handler';
 import s from './ToReadAndTranslate.module.css'
+import topArrow from '../../assets/images/tiny-arrow-top-2-512.webp';
+import bottomArrow from '../../assets/images/tiny-arrow-bottom-2-512.png';
 
 const showSentences = (langSentences, startSentence, sentencesOnPageTop) => {
     let endSentence = startSentence + sentencesOnPageTop;
@@ -43,36 +45,23 @@ let ToReadAndTranslate = (props) => {
             <div className={s.sentencesWrapper}>
                 <div className={s.topMargin}></div>
                 <div className={s.topSentences}>
-                    <div className={s.topFlexSentences}>
-                        {showSentences(props.engSentences, r - sentencesOnPageTop, sentencesOnPageTop)}
-                    </div>
+                    {showSentences(props.engSentences, r - sentencesOnPageTop, sentencesOnPageTop)}
                 </div>
-                <div className={s.buttonUp}>
-                    <button onClick={() => { props.scrollLineUp(r) }}>Scroll Line Up</button>
-                </div>
+                <button onClick={() => { props.scrollLineUp(r) }} className={s.buttonUp} ><img src={topArrow} />Line Up</button>
                 <div className={s.engReadingSentence}>
-                    <div className={s.readingFlexSentences}>
-                        {showCurrentSentenceContext(props.engSentences[r])}
-                    </div>
+                    {showCurrentSentenceContext(props.engSentences[r])}
                 </div>
                 <div className={s.rusReadingSentence}>
-                    <div className={s.translationFlexSentences}>
-                        {showCurrentSentenceContext(props.rusSentences[r])}
-                    </div>
+                    {showCurrentSentenceContext(props.rusSentences[r])}
                 </div>
                 <div className={s.bottomSentences}>
-                    <div className={s.bottomFlexSentences}>
-                        {showSentences(props.engSentences, r + 1, sentencesOnPageTop)}
-                    </div>
+                    {showSentences(props.engSentences, r + 1, sentencesOnPageTop)}
                 </div>
                 <div className={s.buttonDown}>
-                    <div className={s.downFlexButton}>
-                    <button onClick={() => { props.scrollLineDown(r) }}>Scroll Line Down</button>
-                    </div>
+                <button onClick={() => { props.scrollLineDown(r) }} className={s.buttonDownContent}>Line Down<img src={bottomArrow} /></button>
                 </div>
             </div>
         </ReactScrollWheelHandler>
-
     </div >)
 }
 

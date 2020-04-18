@@ -44,16 +44,13 @@
     grid-column: 1/2;
     grid-row: 2/3;
     overflow: hidden;
-}
-
-.topFlexSentences {
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
 }
 
-.topFlexSentences>div {
+.topSentences>div {
     height: 100%;
     width: 100%;
 }
@@ -61,21 +58,35 @@
 .buttonUp {
     grid-column: 2/3;
     grid-row: 2/3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    font-size: larger;
+    margin-top: 2vh;
+    margin-right: 1vw;
+}
+
+.buttonUp img {
+    height: 5vh;
+    width: auto;
+}
+
+.buttonText {
+    font-size: larger;
 }
 
 .engReadingSentence {
     grid-column: 1/3;
     grid-row: 3/4;
-}
-
-.readingFlexSentences {
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
 
-.readingFlexSentences>div {
+.engReadingSentence>div {
     color: darkblue;
     height: 100%;
     width: 100%;
@@ -84,18 +95,15 @@
 .rusReadingSentence {
     grid-column: 1/3;
     grid-row: 4/5;
-}
-
-.translationFlexSentences {
     height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
 }
 
-.translationFlexSentences>div {
+.rusReadingSentence>div {
     color: green;
     font-size: smaller;
-    justify-content: flex-start;
     height: 100%;
     width: 100%;
 }
@@ -104,16 +112,13 @@
     grid-column: 1/2;
     grid-row: 5/6;
     overflow: hidden;
-}
-
-.bottomFlexSentences {
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.bottomFlexSentences>div {
+.bottomSentences>div {
     height: 100%;
     width: 100%;
 }
@@ -121,11 +126,20 @@
 .buttonDown {
     grid-column: 2/3;
     grid-row: 5/6;
-}
-
-.downFlexButton {
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+}
+
+.buttonDownContent {
+    align-items: center;
+    height: fit-content;
+    font-size: larger;
+    margin-bottom: 2vh;
+    margin-right: 1vw;
+}
+
+.buttonDownContent img {
+    height: 5vh;
+    width: auto;
 }
