@@ -44,23 +44,31 @@ let ToReadAndTranslate = (props) => {
                 <div className={s.topMargin}></div>
                 <div className={s.topSentences}>
                     <div className={s.topFlexSentences}>
-                    {showSentences(props.engSentences, r - sentencesOnPageTop, sentencesOnPageTop)}
+                        {showSentences(props.engSentences, r - sentencesOnPageTop, sentencesOnPageTop)}
                     </div>
                 </div>
                 <div className={s.buttonUp}>
                     <button onClick={() => { props.scrollLineUp(r) }}>Scroll Line Up</button>
                 </div>
                 <div className={s.engReadingSentence}>
-                    {showCurrentSentenceContext(props.engSentences[r])}
+                    <div className={s.readingFlexSentences}>
+                        {showCurrentSentenceContext(props.engSentences[r])}
+                    </div>
                 </div>
                 <div className={s.rusReadingSentence}>
-                    {showCurrentSentenceContext(props.rusSentences[r])}
+                    <div className={s.translationFlexSentences}>
+                        {showCurrentSentenceContext(props.rusSentences[r])}
+                    </div>
                 </div>
                 <div className={s.bottomSentences}>
-                    {showSentences(props.engSentences, r + 1, sentencesOnPageTop)}
+                    <div className={s.bottomFlexSentences}>
+                        {showSentences(props.engSentences, r + 1, sentencesOnPageTop)}
+                    </div>
                 </div>
                 <div className={s.buttonDown}>
+                    <div className={s.downFlexButton}>
                     <button onClick={() => { props.scrollLineDown(r) }}>Scroll Line Down</button>
+                    </div>
                 </div>
             </div>
         </ReactScrollWheelHandler>
